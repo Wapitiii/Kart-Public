@@ -1,65 +1,63 @@
+libpng 1.6.43 - February 23, 2024
+=================================
 
-Libpng 1.2.46 - July 9, 2011
+This is a public release of libpng, intended for use in production code.
 
-This is a public release of libpng, intended for use in production codes.
 
-Files available for download:
+Files available for download
+----------------------------
 
-Source files with LF line endings (for Unix/Linux) and with a
-"configure" script
+Source files with LF line endings (for Unix/Linux):
 
-   libpng-1.2.46.tar.xz (LZMA-compressed, recommended)
-   libpng-1.2.46.tar.gz
-   libpng-1.2.46.tar.bz2
+ * libpng-1.6.43.tar.xz (LZMA-compressed, recommended)
+ * libpng-1.6.43.tar.gz (deflate-compressed)
 
-Source files with LF line endings (for Unix/Linux) without the
-"configure" script
+Source files with CRLF line endings (for Windows):
 
-   libpng-1.2.46-no-config.tar.xz (LZMA-compressed, recommended)
-   libpng-1.2.46-no-config.tar.gz
-   libpng-1.2.46-no-config.tar.bz2
-
-Source files with CRLF line endings (for Windows), without the
-"configure" script
-
-   lpng1246.zip
-   lpng1246.7z
-   lpng1246.tar.bz2
-
-Project files
-
-   libpng-1.2.46-project-netware.zip
-   libpng-1.2.46-project-wince.zip
+ * lpng1643.7z (LZMA-compressed, recommended)
+ * lpng1643.zip (deflate-compressed)
 
 Other information:
 
-   libpng-1.2.46-README.txt
-   libpng-1.2.46-KNOWNBUGS.txt
-   libpng-1.2.46-LICENSE.txt
-   libpng-1.2.46-Y2K-compliance.txt
-   libpng-1.2.46-[previous version]-diff.txt
+ * README.md
+ * LICENSE.md
+ * AUTHORS.md
+ * TRADEMARK.md
 
-Changes since the last public release (1.2.43):
 
-version 1.2.45 [July 9, 2011]
+Changes from version 1.6.42 to version 1.6.43
+---------------------------------------------
 
-  Fixed uninitialized memory read in png_format_buffer() (Bug
-    report by Frank Busse, related to CVE-2004-0421).
-  Pass "" instead of '\0' to png_default_error() in png_err().  This mistake
-    was introduced in libpng-1.2.20beta01.
-  Check for up->location !PNG_AFTER_IDAT when writing unknown chunks
-    before IDAT.
-  Ported bugfix in pngrtran.c from 1.5.3: when expanding a paletted image,
-    always expand to RGBA if transparency is present.
-  Check for integer overflow in png_set_rgb_to_gray().
-  Check for sCAL chunk too short.
-  Added CMakeLists.txt, projects/xcode, and pnggccrd.c to EXTRA_DIST in
-    Makefile.am and Makefile.in
-  Udated copyright year to 2011.
+ * Fixed the row width check in png_check_IHDR().
+   This corrected a bug that was specific to the 16-bit platforms,
+   and removed a spurious compiler warning from the 64-bit builds.
+   (Reported by Jacek Caban; fixed by John Bowler)
+ * Added eXIf chunk support to the push-mode reader in pngpread.c.
+   (Contributed by Chris Blume)
+ * Added contrib/pngexif for the benefit of the users who would like
+   to inspect the content of eXIf chunks.
+ * Added contrib/conftest/basic.dfa, a basic build-time configuration.
+   (Contributed by John Bowler)
+ * Fixed a preprocessor condition in pngread.c that broke build-time
+   configurations like contrib/conftest/pngcp.dfa.
+   (Contributed by John Bowler)
+ * Added CMake build support for LoongArch LSX.
+   (Contributed by GuXiWei)
+ * Fixed a CMake build error that occurred under a peculiar state of the
+   dependency tree. This was a regression introduced in libpng-1.6.41.
+   (Contributed by Dan Rosser)
+ * Marked the installed libpng headers as system headers in CMake.
+   (Contributed by Benjamin Buch)
+ * Updated the build support for RISCOS.
+   (Contributed by Cameron Cawley)
+ * Updated the makefiles to allow cross-platform builds to initialize
+   conventional make variables like AR and ARFLAGS.
+ * Added various improvements to the CI scripts in areas like version
+   consistency verification and text linting.
+ * Added version consistency verification to pngtest.c also.
 
-Send comments/corrections/commendations to png-mng-implement at lists.sf.net
-(subscription required; visit
+
+Send comments/corrections/commendations to png-mng-implement at lists.sf.net.
+Subscription is required; visit
 https://lists.sourceforge.net/lists/listinfo/png-mng-implement
-to subscribe) or to glennrp at users.sourceforge.net
-
-Glenn R-P
+to subscribe.
