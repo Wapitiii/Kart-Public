@@ -1,21 +1,19 @@
 #! /bin/sh
 #
-# Copyright (C) 2003, 2005-2007 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2005-2007, 2011, 2018-2023 Free Software Foundation, Inc.
 #
-# This program is free software; you can redistribute it and/or modify it
-# under the terms of the GNU Library General Public License as published
-# by the Free Software Foundation; either version 2, or (at your option)
-# any later version.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation; either version 2.1 of the License, or
+# (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Lesser General Public License for more details.
 #
-# You should have received a copy of the GNU Library General Public
-# License along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
-# USA.
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
 # Find a way to echo strings without interpreting backslash.
@@ -40,7 +38,7 @@ fi
 # $PREFIX/share/sh-scripts or $PREFIX/share/gettext. In order to not violate
 # the Filesystem Hierarchy Standard when doing so, this script is executable.
 # Therefore it needs to support the standard --help and --version.
-if test -z "$ZSH_VERSION"; then
+if test -z "${ZSH_VERSION+set}"; then
   # zsh is not POSIX compliant: By default, while ". gettext.sh" is executed,
   # it sets $0 to "gettext.sh", defeating the purpose of this test. But
   # fortunately we know that when running under zsh, this script is always
@@ -50,7 +48,7 @@ if test -z "$ZSH_VERSION"; then
     gettext.sh | */gettext.sh | *\\gettext.sh)
       progname=$0
       package=gettext-runtime
-      version=0.18.1
+      version=0.22.5
       # func_usage
       # outputs to stdout the --help usage message.
       func_usage ()
@@ -63,8 +61,8 @@ if test -z "$ZSH_VERSION"; then
       func_version ()
       {
         echo "$progname (GNU $package) $version"
-        echo "Copyright (C) 2003-2007 Free Software Foundation, Inc.
-License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>
+        echo "Copyright (C) 2003-2023 Free Software Foundation, Inc.
+License GPLv2+: GNU GPL version 2 or later <https://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law."
         echo "Written by" "Bruno Haible"
@@ -95,6 +93,20 @@ eval_gettext () {
 # shell variables in the result.
 eval_ngettext () {
   ngettext "$1" "$2" "$3" | (export PATH `envsubst --variables "$1 $2"`; envsubst "$1 $2")
+}
+
+# eval_pgettext MSGCTXT MSGID
+# looks up the translation of MSGID in the context MSGCTXT and substitutes
+# shell variables in the result.
+eval_pgettext () {
+  gettext --context="$1" "$2" | (export PATH `envsubst --variables "$2"`; envsubst "$2")
+}
+
+# eval_npgettext MSGCTXT MSGID MSGID-PLURAL COUNT
+# looks up the translation of MSGID / MSGID-PLURAL for COUNT in the context
+# MSGCTXT and substitutes shell variables in the result.
+eval_npgettext () {
+  ngettext --context="$1" "$2" "$3" "$4" | (export PATH `envsubst --variables "$2 $3"`; envsubst "$2 $3")
 }
 
 # Note: This use of envsubst is much safer than using the shell built-in 'eval'
