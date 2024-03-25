@@ -1,0 +1,14 @@
+prefix=/home/wapitiii/armmxe-shared/usr/armv7-w64-mingw32
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: SDL2_mixer
+Description: mixer library for Simple DirectMedia Layer
+Version: 2.8.0
+Requires: sdl2 >= 2.0.9 opusfile vorbisfile
+Libs: -L${libdir} -lSDL2_mixer
+Cflags: -I${includedir}/SDL2
+Requires.private: 
+Libs.private:  -lwinmm
+Libs.private: -lmodplug -lmpg123   -L/home/wapitiii/armmxe-shared/usr/armv7-w64-mingw32/lib -lsmpeg2 -lstdc++ -L/home/wapitiii/armmxe-shared/usr/armv7-w64-mingw32/lib -lmingw32 -lSDL2main -lSDL2 -mwindows
