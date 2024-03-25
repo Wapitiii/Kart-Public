@@ -166,13 +166,15 @@ ifdef MINGW64
 MINGW=1
 NONX86=1
 NOASM=1
-# MINGW64 should not necessarily imply X86_64=1, but we make that assumption elsewhere
-# Once that changes, remove this
+ifdef X86_64
 X86_64=1
 ifdef AARCH64
-X86_64=
 AARCH64=1
+ifdef ARMV7
+ARMV7=1
+endif #ifdef ARMV7
 endif #ifdef AARCH64
+endif #ifdef X86_64
 endif #ifdef MINGW64
 
 ifdef HAIKU
@@ -354,6 +356,9 @@ ifdef X86_64
 endif
 ifdef AARCH64
 	ARCHOPTS?=-march=armv8-a
+endif
+ifdef ARMV7
+	ARCHOPTS?=-march=armv7-a
 endif
 endif
 

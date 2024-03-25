@@ -1785,6 +1785,9 @@ static SDL_bool Impl_CreateWindow(SDL_bool fullscreen)
 		// to not write RPT files. Every other driver
 		// seems fine.
 		// INFO: direct3d11 is used because OpenGL is only translated from DirectX
+#ifdef ARMV7
+		SDL_SetHint(SDL_HINT_RENDER_DRIVER, "direct3d");
+#endif
 		SDL_SetHint(SDL_HINT_RENDER_DRIVER, "direct3d11");
 
 		renderer = SDL_CreateRenderer(window, -1, flags);
